@@ -57,16 +57,34 @@ For this part of the assignment, you can ignore the missing values in the datase
 
 Calculate the total number of steps taken per day
 
+```{r steps per day}
+StepsPerDay <- aggregate(steps ~ date, data = activity, sum, na.rm = TRUE)
+hist(StepsPerDay$steps, main = "Steps per day", xlab = "day", col = "blue")
+```
+
 If you do not understand the difference between a histogram and a barplot, research the difference between them. Make a histogram of the total number of steps taken each day
 
 
 Calculate and report the mean and median of the total number of steps taken per day
+
+```{r}
+mean(StepsPerDay$steps)
+median(StepsPerDay$steps)
+```
+
 
 What is the average daily activity pattern?
 
 Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 
 Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
+
+```{r}
+time_series <- tapply(activity$steps, activity$interval, mean, na.rm = TRUE)
+plot(row.names(time_series), time_series, type = "l", xlab = "5-min interval", 
+    ylab = "Average across all Days", main = "Average number of steps", 
+    col = "red")
+```
 
 Imputing missing values
 
